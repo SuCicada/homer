@@ -1,0 +1,40 @@
+name: Build
+
+on:
+  push:
+    branches:
+      - sucicada
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+#      - name: init
+#        run: |
+#          apt update && apt install -y rsync
+      - name: Get config
+        run: git submodule update --init --recursive
+      - name: Build project
+        run: |
+          npm install -g yarn
+          yarn install
+          yarn build
+      - name: Sync files to remote server
+        uses: burnett01/rsync-deployments@5.2.1
+        with:
+          switches: -avzr --delete
+          path: dist/
+          remote_path: /${{ secrets.deploy_path }}
+          remote_host: ${{ secrets.ssh_host }}
+          remote_user: ${{ secrets.ssh_username }}
+          remote_key: ${{ secrets.ssh_password }}
+#        env:
+#          ssh_host: ${{ secrets.ssh_host }}
+#          ssh_password: ${{ secrets.ssh_password }}
+#          ssh_username: ${{ secrets.ssh_username }}
+#          deploy_path: ${{ secrets.deploy_path }}
+#        run: |
+#          rsync -avz --delete ./dist/ ${{env.ssh_username}}@${{env.ssh_host}}:${{env.deploy_path}} --password-file=<(echo "${{env.ssh_password}}")
+#

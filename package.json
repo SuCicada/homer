@@ -5,6 +5,7 @@
     "dev": "vite",
     "mock": "http-server dummy-data/ --cors",
     "build": "vite build",
+    "clean": "rm -r dist",
     "preview": "vite preview --port 5050",
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs --fix --ignore-path .gitignore"
   },
