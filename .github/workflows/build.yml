@@ -1,27 +1,36 @@
-name: Build
+name: Homer Build
 
 on:
   push:
     branches:
       - sucicada
 
+permissions: read-all
+
 jobs:
-  sync:
+  build:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v2
-#      - name: init
+        uses: actions/checkout@v3
+        with:
+          submodules: true
+          token: ${{ secrets.ACCESS_TOKEN }}
+
+
+      #      - name: init
 #        run: |
 #          apt update && apt install -y rsync
-      - name: Get config
-        run: git submodule update --init --recursive
+#      - name: Get config
+#        run: git submodule update --init --recursive
+
       - name: Build project
         run: |
           ln config/config.yml public/assets/config.yml
           npm install -g yarn
           yarn install
           yarn build
+
       - name: Sync files to remote server
         uses: burnett01/rsync-deployments@5.2.1
         with:
