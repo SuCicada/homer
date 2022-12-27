@@ -18,6 +18,7 @@ jobs:
         run: git submodule update --init --recursive
       - name: Build project
         run: |
+          ln config/config.yml public/assets/config.yml
           npm install -g yarn
           yarn install
           yarn build
