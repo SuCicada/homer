@@ -2,6 +2,7 @@
   "name": "homer",
   "version": "22.07.2",
   "scripts": {
+    "serve": "yarn dev",
     "dev": "vite",
     "mock": "http-server dummy-data/ --cors",
     "build": "vite build",
