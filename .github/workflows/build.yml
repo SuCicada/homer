@@ -34,7 +34,7 @@ jobs:
       - name: Sync files to remote server
         uses: burnett01/rsync-deployments@5.2.1
         with:
-          switches: -avzr --delete
+          switches: -avzr
           path: dist/
           remote_path: /${{ secrets.deploy_path }}
           remote_host: ${{ secrets.ssh_host }}
@@ -48,3 +48,11 @@ jobs:
 #        run: |
 #          rsync -avz --delete ./dist/ ${{env.ssh_username}}@${{env.ssh_host}}:${{env.deploy_path}} --password-file=<(echo "${{env.ssh_password}}")
 #
+
+      - name: Webhook
+        if: always()
+        uses: SuCicada/su-action-webhook@latest
+        with:
+          url: ${{secrets.WEBHOOK_URL}}
+          job: ${{toJSON(job)}}
+          github: ${{toJSON(github)}}

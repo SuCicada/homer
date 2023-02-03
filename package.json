@@ -4,6 +4,7 @@
   "scripts": {
     "serve": "yarn dev",
     "dev": "vite",
+    "deploy": "yarn build && make upload",
     "mock": "http-server dummy-data/ --cors",
     "build": "vite build",
     "clean": "rm -r dist",
