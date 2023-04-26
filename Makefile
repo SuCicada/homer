@@ -25,11 +25,14 @@ run:
 	yarn serve
 
 define git_update
-	git add . && \
-	git commit -m "update" && \
-	git push
+	if [ ! -z "$$(git status --porcelain)" ]; then \
+		git add . ; \
+		git commit -m "update" ; \
+		git push ; \
+	fi
 endef
 
+
 push:
-	#cd config && $(call git_update)
+	cd config && $(call git_update)
 	$(call git_update)
