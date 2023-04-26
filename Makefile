@@ -25,12 +25,11 @@ run:
 	yarn serve
 
 define git_update
-	pwd
-	git add .
-	git commit -m "update"
+	git add . && \
+	git commit -m "update" && \
 	git push
 endef
 
 push:
-	cd config && $(call git_update)
-	#$(call git_update)
+	#cd config && $(call git_update)
+	$(call git_update)
