@@ -21,4 +21,16 @@ upload:
 	$(call command, "mkdir -p $(DEPLOY_PATH)")
 	$(call upload, dist/)
 
+run:
+	yarn serve
 
+define git_update
+	pwd
+	git add .
+	git commit -m "update"
+	git push
+endef
+
+push:
+	cd config && $(call git_update)
+	#$(call git_update)
