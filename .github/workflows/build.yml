@@ -36,10 +36,10 @@ jobs:
         with:
           switches: -avzr
           path: dist/
-          remote_path: /${{ secrets.deploy_path }}
-          remote_host: ${{ secrets.ssh_host }}
-          remote_user: ${{ secrets.ssh_username }}
-          remote_key: ${{ secrets.ssh_password }}
+          remote_path: /${{ secrets.DEPLOY_PATH }}
+          remote_host: ${{ secrets.SSH_HOST }}
+          remote_user: ${{ secrets.SSH_USERNAME }}
+          remote_key: ${{ secrets.SSH_KEY }}
 #        env:
 #          ssh_host: ${{ secrets.ssh_host }}
 #          ssh_password: ${{ secrets.ssh_password }}
