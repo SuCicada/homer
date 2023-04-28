@@ -1,5 +1,6 @@
 ifneq ("$(wildcard .env)","")
 	include .env
+	include $(env_secret)
 	export
 endif
 
@@ -36,3 +37,18 @@ endef
 push:
 	cd config && $(call git_update)
 	$(call git_update)
+
+UNAME_S := $(shell uname -s)
+ifeq ($(UNAME_S),Linux)
+	architecture = "linux/amd64"
+else ifeq ($(UNAME_S),Darwin)
+	architecture = "linux/arm64"
+endif
+act-debug:
+	act \
+	--container-architecture $(architecture) \
+    -s GITHUB_TOKEN=$(API_TOKEN_GITHUB) \
+    -s ACCESS_TOKEN=$(API_TOKEN_GITHUB) \
+    -s github.repository=SuCicada/homer \
+    --env-file .env \
+    --env-file $(env_secret)

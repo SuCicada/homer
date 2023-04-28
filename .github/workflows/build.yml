@@ -31,18 +31,30 @@ jobs:
           yarn install
           yarn build
 
-      - name: Sync files to remote server
-        uses: burnett01/rsync-deployments@5.2.1
+      - name: ssh-scp-deploy
+        uses: marcodallasanta/ssh-scp-deploy@v1.2.0
         with:
-          switches: -avzr
-          path: dist/
-          remote_path: /${{ secrets.DEPLOY_PATH }}
-          remote_host: ${{ secrets.SSH_HOST }}
-          remote_user: ${{ secrets.SSH_USERNAME }}
-          remote_key: ${{ secrets.SSH_KEY }}
+          local: ./dist/                                                  # Local file path - REQUIRED false - DEFAULT ./
+          remote: ${{secrets.DEPLOY_PATH}}/                                                 # Remote file path - REQUIRED false - DEFAULT ~/
+          host: ${{secrets.SSH_HOST}}                                      # Remote server address - REQUIRED true
+          #          port: ${{secrets.PORT}}                                      # Remote server port - REQUIRED false - DEFAULT 22
+          user: ${{secrets.SSH_USERNAME}}                                      # Remote server user - REQUIRED true
+          password: ${{secrets.SSH_PASSWORD}}                              # User password - REQUIRED at least one of "password" or "key"
+          ssh_options: -o StrictHostKeyChecking=no
+
+#      - name: Sync files to remote server
+#        uses: burnett01/rsync-deployments@5.2.1
+#        with:
+#          switches: -avzr
+#          path: dist/
+#          remote_path: /${{ secrets.DEPLOY_PATH }}
+#          remote_host: ${{ secrets.SSH_HOST }}
+#          remote_user: ${{ secrets.SSH_USERNAME }}
+#          remote_key: ${{ secrets.SSH_KEY }}
+#
 #        env:
 #          ssh_host: ${{ secrets.ssh_host }}
-#          ssh_password: ${{ secrets.ssh_password }}
+#          ssh_passw  ord: ${{ secrets.ssh_password }}
 #          ssh_username: ${{ secrets.ssh_username }}
 #          deploy_path: ${{ secrets.deploy_path }}
 #        run: |
