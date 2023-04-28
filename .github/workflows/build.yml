@@ -34,7 +34,7 @@ jobs:
       - name: ssh-scp-deploy
         uses: marcodallasanta/ssh-scp-deploy@v1.2.0
         with:
-          local: ./dist/                                                  # Local file path - REQUIRED false - DEFAULT ./
+          local: ./dist/*                                                  # Local file path - REQUIRED false - DEFAULT ./
           remote: ${{secrets.DEPLOY_PATH}}/                                                 # Remote file path - REQUIRED false - DEFAULT ~/
           host: ${{secrets.SSH_HOST}}                                      # Remote server address - REQUIRED true
           #          port: ${{secrets.PORT}}                                      # Remote server port - REQUIRED false - DEFAULT 22
