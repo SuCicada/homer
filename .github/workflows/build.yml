@@ -40,6 +40,7 @@ jobs:
           #          port: ${{secrets.PORT}}                                      # Remote server port - REQUIRED false - DEFAULT 22
           user: ${{secrets.SSH_USERNAME}}                                      # Remote server user - REQUIRED true
           password: ${{secrets.SSH_PASSWORD}}                              # User password - REQUIRED at least one of "password" or "key"
+          key: ${{secrets.SSH_KEY}}
           ssh_options: -o StrictHostKeyChecking=no
 
 #      - name: Sync files to remote server
